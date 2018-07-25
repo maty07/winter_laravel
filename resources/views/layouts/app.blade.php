@@ -37,6 +37,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('generos.index') }}">Géneros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('trailers.index') }}">Trailers</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,7 +79,23 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        @if(count($errors))
+           <div class="container">
+               <div class="row mt-3">
+                   <div class="col-md-8 offset-md-2">
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                   </div>
+               </div>
+           </div>
+        @endif
+
+        <main class="py-3">
             @yield('content')
         </main>
     </div>

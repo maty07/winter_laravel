@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Genre;
 
 class GenreController extends Controller
 {
@@ -13,7 +14,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $genres = Genre::OrderBy('id', 'DESC')->paginate();
+        return view('genre/index', compact('genres'));
     }
 
     /**
@@ -23,7 +25,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        return view('genre.create');
     }
 
     /**
@@ -34,7 +36,12 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:genres|min:2',
+        ]);
+
+        $genre = Genre::create($request->all());
+        return redirect()->route('generos.index')->with('success', 'Gérero guardado exitosamente');
     }
 
     /**
@@ -45,7 +52,8 @@ class GenreController extends Controller
      */
     public function show($id)
     {
-        //
+        $genre = Genre::find($id);
+        return view('genre.show', compact('genre'));
     }
 
     /**
@@ -56,7 +64,8 @@ class GenreController extends Controller
      */
     public function edit($id)
     {
-        //
+        $genre = Genre::find($id);
+        return view('genre.edit', compact('genre'));
     }
 
     /**
@@ -68,7 +77,12 @@ class GenreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:2',
+        ]);
+
+        $genre = Genre::find($id)->update($request->all());
+        return redirect()->route('generos.index')->with('success', 'Genero editado correctamente');
     }
 
     /**
@@ -79,6 +93,7 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Genre::find($id)->delete();
+        return back()->with('success', 'Género eliminado correctamente');
     }
 }

@@ -15,3 +15,4 @@
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('trailers', 'MovieController');
+Route::resource('generos', 'GenreController');
