@@ -37,7 +37,7 @@
                                         <td>{{ $movie->author }}</td>
                                         <td>{{ $movie->category }}</td>
                                         <td width="10px">
-                                            <a class="btn btn-info btn-sm" href="{{ route('trailers.show', $movie->id) }}">Ver</a>
+                                            <a class="btn btn-info btn-sm" href="{{ route('trailers.show', $movie->slug) }}">Ver</a>
                                         </td>
                                         <td width="10px">
                                             <a class="btn btn-warning btn-sm" href="{{ route('trailers.edit', $movie->id) }}">Editar</a>

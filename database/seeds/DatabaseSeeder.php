@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 
@@ -13,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+      DB::table('users')->insert([
+            'name'      => 'Matias Bravo',
+            'email'     => 'mati@gmail.com',
+            'password'  => Hash::make('123456')
+        ]);
+
        DB::table('genres')->insert([
             'name' => 'Accion'
         ]);
@@ -29,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Fantasia'
         ]);
        DB::table('genres')->insert([
-            'name' => 'Ciencia y Ficcion'
+            'name' => 'Ciencia Ficcion'
         ]);
        DB::table('genres')->insert([
             'name' => 'Romantica'
