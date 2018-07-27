@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 class MovieController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $movies = Movie::OrderBy('id', 'DESC')->paginate(10);
