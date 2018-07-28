@@ -36,8 +36,8 @@
         </div>
          <div class="form-row">
             <div class="form-group col-md-12">
-                {{ Form::label('poster', 'Poster') }}
-                {{ Form::text('poster', null, ['class' => 'form-control']) }}
+                {{ Form::label('image_id', 'Poster') }}
+                {{ Form::file('image_id', null, ['class' => 'form-control']) }}
             </div>
         </div>
         <div class="form-row">

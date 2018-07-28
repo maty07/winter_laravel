@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <section class="container">
      <div class="row">
         <div class="col-md-10 offset-md-1">
@@ -11,7 +13,7 @@
             	</div>
             	<div class="card-body">
             		<div class="text-center my-2">
-            			<img src="{{ $movie->poster }}" width="200px" height="300px">
+            			<img src="{{ asset($image->path) }}" width="300px" height="300px">
             		</div>
             		<hr>
             		@foreach($genres as $genre)

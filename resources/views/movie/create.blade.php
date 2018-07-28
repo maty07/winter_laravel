@@ -9,7 +9,7 @@
                     <h4>Nueva Pelicula/Serie</h4>    
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => 'trailers.store']) !!}
+                    {!! Form::open(['route' => 'trailers.store', 'enctype' => 'multipart/form-data']) !!}
                         @include('movie.partials.form')
                     {!! Form::close() !!}
                 </div>

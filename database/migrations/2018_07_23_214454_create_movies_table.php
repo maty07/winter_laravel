@@ -23,7 +23,6 @@ class CreateMoviesTable extends Migration
             $table->string('actors');
             $table->string('country')->nullable();
             $table->year('premiere')->nullable();
-            $table->string('poster');
             $table->decimal('rating', 2, 1)->nullable();
             $table->enum('category', ['MOVIE', 'SERIE'])->default('MOVIE');
 

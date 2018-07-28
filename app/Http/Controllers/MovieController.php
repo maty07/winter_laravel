@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Movie;
 use App\Genre;
+use App\Image;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -35,14 +37,19 @@ class MovieController extends Controller
             'description'   => 'required',
             'author'        => 'required',
             'actors'        => 'required',
-            'poster'        => 'required',
+            'image_id'      => 'required|max:20000',
             'category'      => 'required',
         ]);
+        $upload = $request->file('image_id');
+       
+        $path = Storage::disk('public')->put('img', $upload);
 
         $movie = Movie::create($request->all());
-
-        $movie->genres()->sync($request->get('genres'));
-
+        $movie->image()->create([
+            'name' => $upload->getClientOriginalName(),
+            'path' => $path
+        ]);
+       
         return redirect()->route('trailers.index')->with('success', 'Movie/Serie creada exitosamente !');
     }
 
@@ -50,13 +57,21 @@ class MovieController extends Controller
     public function show($slug)
     {
         $movie = Movie::where('slug', '=', $slug)->first();
+
         $genres = DB::table('genre_movie')
                         ->join('movies', 'genre_movie.movie_id', '=', 'movies.id')
                         ->join('genres', 'genre_movie.genre_id', '=', 'genres.id')
                         ->where('movies.slug', '=', $slug)
                         ->select('genres.name')
                         ->get();
-        return view('movie.show', compact('movie', 'genres'));
+
+        $image = DB::table('images')
+                        ->join('movies', 'images.movie_id', '=', 'movies.id')
+                        ->where('movies.slug', '=', $slug)
+                        ->select('images.path')
+                        ->first();
+
+        return view('movie.show', compact('movie', 'genres','image'));
     }
 
   
